@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Vivian Nguyen and , this
+On my/our honor, Vivian Nguyen and Vivian Nguyen, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -52,21 +52,24 @@ def rail_fence_decode(string, key):
         current += direction
         if current == 0 or current == key - 1:
             direction *= -1
+    rail_counts = [pattern.count(i) for i in range(key)]
     rails = []
-    for rail_num in range(key):
-        rails.append([char for i, char in enumerate(string) if pattern[i] == rail_num])
+    index = 0
+    for count in rail_counts:
+        rails.append(list(string[index:index + count]))
+        index += count
     result = []
     current = 0
     direction = 1
-    railind = [0] * key
+    rail_indices = [0] * key
     for _ in range(len(string)):
-        result.append(rails[current][railind[current]])
-        railind[current] += 1
+        rail = current
+        result.append(rails[rail][rail_indices[rail]])
+        rail_indices[rail] += 1
         current += direction
         if current == 0 or current == key - 1:
             direction *= -1
     return ''.join(result)
-
 
 def filter_string(string):
     """
